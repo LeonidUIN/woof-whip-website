@@ -1,11 +1,9 @@
-// import Image from "next/image"; // Пока не используется, но может быть полезно в будущем для оптимизации изображеий
-
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { ImageWithFallback } from "@/components/figma/ImageWithFallback";
+import { Button } from "./components/ui/button";
+import { Card, CardContent } from "./components/ui/card";
+import { ImageWithFallback } from "./components/figma/ImageWithFallback";
 import { Scissors, Clock, Star, Phone, MapPin, Instagram, Facebook, Twitter } from "lucide-react";
 
-export default function Home() {
+export default function App() {
   return (
     <div className="min-h-screen bg-zinc-900 text-white">
       {/* Header */}

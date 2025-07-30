@@ -5,9 +5,8 @@ const EXTENSIONS = [".js", ".ts", ".jsx", ".tsx"];
 const IGNORE_DIRS = ["node_modules", ".next", "dist", "build"];
 const IGNORE_FILES = ["package.json", "package-lock.json", "yarn.lock"];
 
-// Строгая регулярка: ищет строки `import ... from '...'` и удаляет только версию после @
-const importRegex = /^(import\s.+?from\s+["'])(@?[^"'@]+(?:\/[^"'@]+)*?)@\d+(?:\.\d+)*(["'])/gm;
-const sideEffectRegex = /^(import\s+["'])(@?[^"'@]+(?:\/[^"'@]+)*?)@\d+(?:\.\d+)*(["'])/gm;
+// Найдёт и удалит @версию из любых строк импортов
+const importRegex = /(["'])((?:@?[^"'@\/]+\/)*[^"'@\/]+)@\d+(?:\.\d+)*\1/g;
 
 function walk(dir, callback) {
   fs.readdirSync(dir, { withFileTypes: true }).forEach((entry) => {
@@ -26,9 +25,9 @@ function walk(dir, callback) {
 function processFile(filePath) {
   const content = fs.readFileSync(filePath, "utf-8");
 
-  const replaced = content
-    .replace(importRegex, `$1$2$3`)        // обрабатывает import ... from '...'
-    .replace(sideEffectRegex, `$1$2$3`);  // обрабатывает import '...'
+  const replaced = content.replace(importRegex, (_, quote, pkg) => {
+    return `${quote}${pkg}${quote}`;
+  });
 
   if (replaced !== content) {
     fs.writeFileSync(filePath, replaced, "utf-8");

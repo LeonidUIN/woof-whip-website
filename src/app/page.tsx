@@ -105,7 +105,7 @@ export default function App() {
           </div>
           
           <p className="text-xl md:text-2xl text-blue-800 max-w-2xl mx-auto mb-8">
-            The first whipped cream made specially for dogs! Watch your furry friend's face light up with every delicious dollop.
+            The first whipped cream made specially for dogs! Watch your furry friend&apos;s face light up with every delicious dollop.
           </p>
           
           <Button 

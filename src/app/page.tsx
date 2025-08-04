@@ -7,6 +7,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { ImageWithFallback } from '@/components/figma/ImageWithFallback';
 import { Star, Heart, Shield, Award, Instagram, Video, Mail } from 'lucide-react';
+import Image from 'next/image';
 const exampleImage = "/images/woof-whip.png";
 
 const flavors = [
@@ -86,10 +87,16 @@ export default function App() {
       <section className="relative overflow-hidden">
         <div className="container mx-auto px-4 py-12 text-center">
           <div className="mb-8">
-            <img 
+            <Image 
               src={exampleImage}
               alt="Woof Whip Display" 
+              width={500}
+              height={300}
               className="mx-auto max-w-md w-full h-auto rounded-3xl shadow-2xl transform rotate-2 hover:rotate-0 transition-transform duration-300"
+              quality={90}
+              priority
+              sizes="(max-width: 768px) 100vw, 500px"
+              style={{ objectFit: 'contain' }}
             />
           </div>
           
@@ -191,10 +198,13 @@ export default function App() {
                   <CarouselItem key={index} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
                     <Card className="transform hover:scale-105 transition-all duration-300 shadow-lg border-4 border-blue-300">
                       <CardContent className="p-2">
-                        <ImageWithFallback 
+                        <Image 
                           src={photo} 
                           alt={`Happy dog ${index + 1}`}
+                          width={400}
+                          height={300}
                           className="w-full h-48 object-cover rounded-lg"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         />
                       </CardContent>
                     </Card>
